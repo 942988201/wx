@@ -1,16 +1,15 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
+
 cloud.init()
-// const rp = require('request-promise')
-// const url = 'https://y.music.163.com/m/'
 const db = cloud.database()
-let val = {
+let val =  {
   "Home": {
     "hasTaste": false,
     "code": 200,
     "category": 0,
     "result": [{
-      "_id": 5351084973,
+      "id": 5351084973,
       "type": 0,
       "name": "马拉多纳 再见球王",
       "copywriter": "编辑推荐：他离开了我们，但他也与我们同在",
@@ -22,7 +21,7 @@ let val = {
       "highQuality": false,
       "alg": "featured"
     }, {
-      "_id": 5334020451,
+      "id": 5334020451,
       "type": 0,
       "name": "rapper说情话┃旋律说唱┃甜甜的宝藏女孩必备",
       "copywriter": "热门推荐",
@@ -86,35 +85,35 @@ let val = {
     "downloadPicUrl": "https:\u002F\u002Fp1.music.126.net\u002FM5oskkknIRHTcr81ZgD_0g==\u002F109951164194361654.png?imageView=1&thumbnail=320x0"
   },
   "userAgent": "Mozilla\u002F5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit\u002F605.1.15 (KHTML, like Gecko) Version\u002F13.0.3 Mobile\u002F15E148 Safari\u002F604.1"
-};
+}
 val = val.Home.result
-const list = db.collection('playlist').get()
-let newData = []
-// for(let i=0;i<val.length;i++){
-//   let flag = true
-//   for(let j=0;j<list.lengthl;j++){
-//     if(val[i].id === list.data[j].id){
-//       flag = false
-//       break
-//     }
-//   }
-//   if(flag){
-//     newData.push(val[i])
-//   }
-// }
-
-
 // 云函数入口函数
+const list = db.collection('playlist').get()
+console.log(list)
+let newData = []
+for(let i=0;i<val.length;i++){
+  let flag = true
+  for(let j=0;j<list.length;j++){
+    if(val[i].id === list.data[j].id){
+      flag = false
+      break
+    }
+  }
+  if(flag){
+    newData.push(val[i])
+  }
+}
+console.log(newData)
 exports.main = async (event, context) => {
 
-  for(let i=0;i<val.length;i++){
-    await db.collection('playlist').add({
+  //for(let i=0;i<newData.length;i++){
+     db.collection('playlist').add({
       data:{
-        ...val[i],
+        ...newData[0],
         createTime:db.serverDate()
       }
     })
-  }
+ // }
   return {
     code:200
   }

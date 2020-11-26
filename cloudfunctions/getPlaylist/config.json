@@ -2,5 +2,10 @@
   "permissions": {
     "openapi": [
     ]
+  },
+  "triggers":{
+    "name":"qqq",
+    "type": "timer",
+    "config": "0 0 2 1 * * *"
   }
 }
