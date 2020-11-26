@@ -1,0 +1,6 @@
+
+<view class="playListContainer">
+  <image  src="{{data.url}}"></image>
+  <text>{{_count}}</text>
+  <view>{{data.num}}</view>
+</view>

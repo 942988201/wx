@@ -1,0 +1,7 @@
+/* pages/playlist/playlist.wxss */
+.img{
+  color: #000;
+}
+playlist{
+  width: 250rpx;
+}
