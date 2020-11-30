@@ -1,6 +1,5 @@
-<!--pages/playlist/playlist.wxml-->
-<text>pages/playlist/playlist.wxml</text>
-<text>{{openid}}</text>
+
+<!-- <text>{{openid}}</text> -->
 <swiper>
   <block wx:for="{{swiperUrl}}"  wx:key="key" >
     <swiper-item>
@@ -9,8 +8,8 @@
     </swiper-item>
   </block>
 </swiper>
-<view>
+<view class="playlistBox">
   <block wx:for="{{playList}}" wx:key="key" >
-    <playlist data="{{item}}"></playlist>
+      <playlist data="{{item}}"></playlist>
   </block>
 </view>

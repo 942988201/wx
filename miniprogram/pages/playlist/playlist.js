@@ -6,7 +6,6 @@ Page({
    */
   data: {
     swiperUrl: [
-
       '../../images/assets/5-6_images/1.jpg',
       '../../images/assets/5-6_images/2.jpg',
       '../../images/assets/5-6_images/3.jpg'
@@ -60,6 +59,9 @@ Page({
       this.setData({
         openid: res.result.openid
       })
+    })
+    wx.request({
+      url: 'url',
     })
   },
 
