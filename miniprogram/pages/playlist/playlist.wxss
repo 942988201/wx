@@ -3,8 +3,7 @@
   color: #000;
 }
 playlist{
-  display: block;
-  width: 250rpx;
+
 }
 .playlistBox{
   display: flex;

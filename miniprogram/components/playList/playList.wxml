@@ -1,6 +1,11 @@
-
 <view class="playListContainer">
-  <image  src="{{data.url}}"></image>
-  <text>{{_count}}</text>
-  <view>{{data.num}}</view>
+  <wxs module="fn1">
+    module.exports = {
+      title: function(d) {
+        return d.subject_name || d.story_title
+      }
+    }
+  </wxs>
+  <image src="{{data.story_cover}}"></image>
+  <text class="text">{{fn1.title(data)}}</text>
 </view>

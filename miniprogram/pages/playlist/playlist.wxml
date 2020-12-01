@@ -1,13 +1,13 @@
 
 <!-- <text>{{openid}}</text> -->
-<swiper>
+<!-- <swiper>
   <block wx:for="{{swiperUrl}}"  wx:key="key" >
     <swiper-item>
 
       <image src="{{item}}" mode='scaleToFill' class='img'></image>
     </swiper-item>
   </block>
-</swiper>
+</swiper> -->
 <view class="playlistBox">
   <block wx:for="{{playList}}" wx:key="key" >
       <playlist data="{{item}}"></playlist>
