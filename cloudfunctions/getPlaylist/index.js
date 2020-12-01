@@ -3,26 +3,23 @@ const cloud = require('wx-server-sdk')
 cloud.init()
 const db = cloud.database()
 const rp = require("request-promise")
-let urll = 'http://api.public.ytmedia.com/mobile/jingxuan/top'
-// let data  = new Promise(function(res, reject) {
-//   rp.get(urll).then(function(data){
-//     res(data)
-//   })
-// });
+let urll = 'http://api.public.ytmedia.com/mobile/jingxuan/story?page='
 
-
-let data = function () {
-  return new Promise((resolve, reject) => {
-    rp.get(urll).then(function (data) {
-      resolve(JSON.parse(data).list.banner)
-    })
-  })
-}
+let data = (function () {
+  let task = []
+  for (let i = 1; i < 11; i++) {
+    task.push(new Promise((resolve, reject) => {
+      rp.get(urll + i).then(function (data) {
+        resolve(JSON.parse(data).list)
+      })
+    }))
+  }
+  return task
+})()
 
 
 function newData(data, wxdata) {
   wxdata = wxdata.data
-  debugger
   let arr = []
   for (let i = 0; i < data.length; i++) {
     let flag = true
@@ -44,9 +41,12 @@ function newData(data, wxdata) {
 
 exports.main = async (event, context) => {
   const wxdata = await db.collection('playlist').get()
-  let da = await data();
+  console.log(data)
+  let da = await Promise.all(data).then((d)=>{
+    console.log(d)
+    return d.reduce(function (a, b) { return a.concat(b)} )
+  })
   let d = newData(da, wxdata)
-  console.log(d)
   for (let i = 0; i < d.length; i++) {
     db.collection('playlist').add({
       data: {
